@@ -14,9 +14,9 @@ Create table DirectMarketing.Competitor
 (
 CompetitorId int NOT Null,
 CompetitorName varchar(30) NOT NULl,
-CompetitionAddress varchar(MAX) NULL,
-CompetitionDate date NULL,
-CompetitionSrength varchar(10) NULL,
+CompetitionAddress varchar(MAX)NOT NULL,
+CompetitionDate date NOT NULL,
+CompetitionSrength varchar(10) NOT NULL,
 Comments varchar(MAX) NULL
 );
 GO
