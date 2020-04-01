@@ -1,0 +1,51 @@
+-- LAB 02
+--
+-- Exercise 2
+
+create schema DirectMarketing
+AUTHORIZATION dbo;
+go
+
+-- LAB 02
+--
+-- Exercise 3
+
+Create table DirectMarketing.Competitor
+(
+CompetitorId int NOT Null,
+CompetitorName varchar(30) NOT NULl,
+CompetitionAddress varchar(MAX) NULL,
+CompetitionDate date NULL,
+CompetitionSrength varchar(10) NULL,
+Comments varchar(MAX) NULL
+);
+GO
+
+Create table DirectMarketing.TVAdvertisement
+(
+TVAdvertisementId int NOT Null,
+TVAdvertisementLocation varchar(30) NOT NULl,
+TVAdvertisementCost float NOT Null,
+TVAdvertisementDate date NOT Null,
+TVAdvertisementTime time NOT Null,
+TvChannelName varchar(50) NOT NULL
+);
+GO
+
+CREATE TABLE DirectMarketing.CampaignResponse
+(
+	CampaignId int NOT NULL,
+	CampaignName varchar(50) NOT NULL,
+	CampaignLocation varchar(50) NOT NULL, 
+	CampaignStartDate date NOT NULL,
+	CampaignEndDate date NOT NULL,
+	CampaignTotalResponse int NOT NULL,
+	ChargeFromReferrer float NULL,
+	RevenueFromResponse	float NULL,
+	ResponseProfit AS (RevenueFromResponse - ChargeFromReferrer) PERSISTED
+);
+GO
+
+Select *from DirectMarketing.Competitor
+Select *from DirectMarketing.TVAdvertisement
+Select *from DirectMarketing.CampaignResponse
