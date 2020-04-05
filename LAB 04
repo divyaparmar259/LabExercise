@@ -1,5 +1,5 @@
 -- Step 1:
-use LabExcercise
+use LabExcercise 
 
 --Step 2:create the tables to meet requirements
 create table DirectMarketing.Opportunity
@@ -28,4 +28,6 @@ ALTER TABLE DirectMarketing.Opportunity
 ADD CONSTRAINT dfDateRaised
 DEFAULT (SYSDATETIME()) FOR DateRaised; 
 GO
+
+--end
 
