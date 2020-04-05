@@ -1,0 +1,31 @@
+-- Step 1:
+use LabExcercise
+
+--Step 2:create the tables to meet requirements
+create table DirectMarketing.Opportunity
+(OpportunityID int NOT NULL,
+ProspectID int NOT NULL,
+DateRaised datetime NOT NULL,
+Likelihood tinyint NOT NULL,
+Rating char(1) NOT NULL,
+EstimatedClosingDate date NOT NULL,	
+EstimatedRevenue decimal(10,2) NOT NULL
+);
+
+-- Step 3 Add a composite primary key to the table
+ALTER TABLE DirectMarketing.Opportunity
+ADD CONSTRAINT PK_Opportunity PRIMARY KEY CLUSTERED (OpportunityID, ProspectID);
+GO
+
+-- Step 4 Add a foreign key to the table, linking it to the Prospect table primary key
+ALTER TABLE DirectMarketing.Opportunity
+ADD CONSTRAINT FK_OpportunityProspect
+FOREIGN KEY (ProspectID) REFERENCES DirectMarketing.Prospect(ProspectID); 
+GO
+
+-- Step 5 Add a default constraint that will set the DateRaised column to the current system data and time.
+ALTER TABLE DirectMarketing.Opportunity
+ADD CONSTRAINT dfDateRaised
+DEFAULT (SYSDATETIME()) FOR DateRaised; 
+GO
+
