@@ -1,0 +1,71 @@
+USE tempdb;
+GO
+
+CREATE TABLE dbo.PhoneLog
+( PhoneLogID int IDENTITY(1,1) PRIMARY KEY,
+  LogRecorded datetime2 NOT NULL,
+  PhoneNumberCalled nvarchar(100) NOT NULL,
+  CallDurationMs int NOT NULL
+);
+GO
+
+SELECT * FROM sys.indexes WHERE OBJECT_NAME(object_id) = N'PhoneLog';
+GO
+SELECT * FROM sys.key_constraints WHERE OBJECT_NAME(parent_object_id) = N'PhoneLog';
+GO
+
+SET NOCOUNT ON;
+
+INSERT dbo.PhoneLog (LogRecorded, PhoneNumberCalled, CallDurationMs)
+    VALUES(SYSDATETIME(),'999-9999',CAST(RAND() * 1000 AS int))
+GO 100000 --insert dummy data, 100,000 times
+
+SELECT * FROM sys.dm_db_index_physical_stats(DB_ID(),OBJECT_ID('dbo.PhoneLog'),NULL,NULL,'DETAILED');
+GO
+
+SET NOCOUNT ON;
+
+DECLARE @Counter int = 0;
+
+WHILE @Counter < 100000 BEGIN
+  UPDATE dbo.PhoneLog SET PhoneNumberCalled = REPLICATE('9',CAST(RAND() * 100 AS int))
+    WHERE PhoneLogID = @Counter % 100000;
+  IF @Counter % 100 = 0 PRINT @Counter;
+  SET @Counter += 1;
+END;
+GO
+
+SELECT * FROM sys.dm_db_index_physical_stats(DB_ID(),OBJECT_ID('dbo.PhoneLog'),NULL,NULL,'DETAILED');
+GO
+
+ALTER INDEX ALL ON dbo.PhoneLog REBUILD;
+GO
+
+SELECT * FROM sys.dm_db_index_physical_stats(DB_ID(),OBJECT_ID('dbo.PhoneLog'),NULL,NULL,'DETAILED');
+GO
+
+SELECT [PhoneLogID]
+      ,[LogRecorded]
+      ,[PhoneNumberCalled]
+      ,[CallDurationMs]
+	  ,p.Name
+  FROM [tempdb].[dbo].[PhoneLog] pl join [AdventureWorks].[Production].Product p
+  ON pl.CallDurationMs = p.ProductID
+GO
+
+CREATE NONCLUSTERED INDEX NCIX_CallDurationMS
+ON [dbo].[PhoneLog] ([CallDurationMs])
+INCLUDE ([PhoneLogID],[LogRecorded],[PhoneNumberCalled])
+GO
+
+SELECT [PhoneLogID]
+      ,[LogRecorded]
+      ,[PhoneNumberCalled]
+      ,[CallDurationMs]
+	  ,p.Name
+  FROM [tempdb].[dbo].[PhoneLog] pl join [AdventureWorks].[Production].Product p
+  ON pl.CallDurationMs = p.ProductID
+GO
+
+DROP TABLE dbo.PhoneLog;
+GO
