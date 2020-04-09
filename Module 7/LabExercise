@@ -16,7 +16,7 @@ GO
 CREATE CLUSTERED COLUMNSTORE INDEX CCI_FactInternetSales ON FactInternetSales
 GO
 
---create memory optimized data
+--add filegroup
 ALTER DATABASE AdventureWorksDW
 ADD FILEGROUP  AdventureWorksDW_Memory_Optimized_Data CONTAINS MEMORY_OPTIMIZED_DATA
 GO
@@ -27,7 +27,7 @@ FILE (name='AdventureworksDW_MOD', filename='D:\LabFiles\Lab04\Starter\SetupFile
 TO FILEGROUP AdventureWorksDW_Memory_Optimized_Data
 GO
 
---Add data in able and enable memory optimized option
+--enable memory optimized option
 CREATE TABLE [dbo].[FactInternetSales]
 (
 	[ProductKey] [int] NOT NULL,
