@@ -1,0 +1,12 @@
+-- XML Sample 1
+
+<Production.Product ProductID="999" Name="Road-750 Black, 52" ProductNumber="BK-R19B-52" MakeFlag="1" FinishedGoodsFlag="1" Color="Black" SafetyStockLevel="100" ReorderPoint="75" StandardCost="343.6496" ListPrice="539.9900" Size="52" SizeUnitMeasureCode="CM " WeightUnitMeasureCode="LB " Weight="20.42" DaysToManufacture="4" ProductLine="R " Class="L " Style="U " ProductSubcategoryID="2" ProductModelID="31" SellStartDate="2007-07-01T00:00:00" rowguid="AE638923-2B67-4679-B90E-ABBAB17DCA31" ModifiedDate="2008-03-11T10:01:36.827" />
+
+
+-- XML Sample 2
+<Products>
+  <Production.Product ProductID="1" Name="Adjustable Race" ProductNumber="AR-5381" MakeFlag="0" FinishedGoodsFlag="0" SafetyStockLevel="1000" ReorderPoint="750" StandardCost="0.0000" ListPrice="0.0000" DaysToManufacture="0" SellStartDate="2002-06-01T00:00:00" rowguid="694215B7-08F7-4C0D-ACB1-D734BA44C0C8" ModifiedDate="2008-03-11T10:01:36.827" />
+</Products>
+
+
+
